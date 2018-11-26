@@ -1,0 +1,73 @@
+<div class="app-content content">
+    <div class="content-wrapper">
+        <div class="content-header row">
+            <div class="content-header-left col-md-8 col-12 mb-2 breadcrumb-new">
+                <h3 class="content-header-title mb-0 d-inline-block">Interview Demo</h3>
+                <div class="row breadcrumbs-top d-inline-block">
+                    <div class="breadcrumb-wrapper col-12">
+                    <ol class="breadcrumb">
+                        <li class="breadcrumb-item"><a href="#">Home</a></li>
+                        <li class="breadcrumb-item"><a href="#">Demos</a></li>
+                        <li class="breadcrumb-item active">Hacker News</li>
+                    </ol>
+                    </div>
+                </div>
+            </div>
+            <div class="content-header-right col-md-4 col-12">
+            <div class="btn-group float-md-right">
+                <button class="btn btn-info dropdown-toggle" type="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"><i class="icon-settings mr-1"></i>Search Type</button>
+                <div class="dropdown-menu arrow">
+                    <a class="dropdown-item" href="#"><i class="fa fa-calendar mr-1"></i> Story</a>
+                    <a class="dropdown-item" href="#"><i class="fa fa-cart-plus mr-1"></i> Comment</a>
+                    <a class="dropdown-item" href="#"><i class="fa fa-life-ring mr-1"></i> Author</a>
+                    <div class="dropdown-divider"></div>
+                    <a class="dropdown-item" href="#"><i class="fa fa-cog mr-1"></i> Settings</a>
+                </div>
+            </div>
+            </div>
+        </div>
+        <div class="content-body">
+            <section id="basic-callouts">
+            <div class="row">
+                <div class="col-12">
+                    <div class="card">
+                        <div class="card-header">
+                            <h4 class="card-title">Hacker News Article Search</h4>
+                        </div>
+                        <div class="card-content collapse show">
+                            <div class="card-body">
+                                <div class="input-group mb-2">
+                                    <input type="text" class="form-control" placeholder="Hacker news article search..." aria-describedby="basic-addon2" (input)="filter.next($event.target.value)">
+                                    <div class="input-group-append">
+                                        <span class="input-group-text" id="basic-addon2">Search Filter</span>
+                                    </div>
+                                </div>
+
+                                <div *ngIf="articles.length == 0">
+                                    <p>No articles found.</p>
+                                </div>
+                                
+                                <div *ngFor="let art of articles" class="bs-callout-{{getArticleColour(art)}} callout-border-left mt-1 p-1">
+                                    {{getLocalTime(art.created_at)}} <span class="author"> by: {{art.author}}</span> ({{art.points}})
+                                    <p>{{art.title}} <a href="{{art.url}}" target="_blank"><i class="fa fa-external-link"></i></a></p>
+                                </div>
+
+                                <div *ngIf="articles.length" class="pagination">
+                                    <a (click)="getPage(1)">First</a>
+                                    <a (click)="getPage(currentPage - 1)">Previous</a>
+                                    <a *ngFor="let page of pages" (click)="getPage(page)" [ngClass]="{active:currentPage === page}">{{page}}</a>
+
+                                    <a (click)="getPage(currentPage + 1)">Next</a>
+                                    <a (click)="getPage(totalPages)">Last</a>
+                                </div>
+
+
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            </section>
+        </div>
+    </div>
+</div>
